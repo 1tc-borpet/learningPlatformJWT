@@ -14,14 +14,6 @@ composer require tymon/jwt-auth
 php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 php artisan jwt:secret
 ```
-
-### 2. **User Model Frissítése**
-- Eltávolítva: `HasApiTokens` trait (Sanctum)
-- Hozzáadva: `JWTSubject` interface implementálása
-- Új metódusok:
-  - `getJWTIdentifier()` - JWT azonosító
-  - `getJWTCustomClaims()` - Custom claim-ek (jelenleg üres)
-
 ### 3. **Auth Config Módosítása**
 `config/auth.php`:
 ```php
@@ -110,7 +102,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
 
 ---
 
-## 🧪 Tesztek
+##  Tesztek
 
 Minden teszt sikeres! 
 
