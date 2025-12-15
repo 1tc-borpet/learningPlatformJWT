@@ -9,26 +9,9 @@ composer require tymon/jwt-auth
 php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 php artisan jwt:secret
 ```
-<<<<<<< HEAD
+
 
 ### 2. **User Model Frissítése**
-
-**Előtte (Sanctum):**
-```php
-<?php
-namespace App\Models;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
-
-class User extends Authenticatable
-{
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
-    // ...
-}
-```
-
-**Utána (JWT):**
 ```php
 <?php
 namespace App\Models;
@@ -54,7 +37,7 @@ class User extends Authenticatable implements JWTSubject
 ```
 
 =======
->>>>>>> cf70157c7b7516a9d552477b1948047da9373b80
+ cf70157c7b7516a9d552477b1948047da9373b80
 ### 3. **Auth Config Módosítása**
 
 `config/auth.php`:
@@ -73,36 +56,6 @@ class User extends Authenticatable implements JWTSubject
 
 ### 4. **AuthController Átírása**
 
-**Előtte (Sanctum):**
-```php
-public function login(Request $request)
-{
-    $user = User::where('email', $request->email)->first();
-
-    if (!$user || !Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Invalid email or password'], 401);
-    }
-
-    $token = $user->createToken('api-token')->plainTextToken;
-
-    return response()->json([
-        'message' => 'Login successful',
-        'user' => [...],
-        'access' => [
-            'token' => $token,
-            'token_type' => 'Bearer'
-        ]
-    ]);
-}
-
-public function logout(Request $request)
-{
-    $request->user()->tokens()->delete();
-    return response()->json(['message' => 'Logout successful']);
-}
-```
-
-**Utána (JWT):**
 ```php
 public function login(Request $request)
 {
@@ -151,16 +104,6 @@ public function me()
 
 ### 5. **Routes Frissítése**
 
-**Előtte:**
-```php
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/users/me', [UserController::class, 'me']);
-    // ...
-});
-```
-
-**Utána:**
 ```php
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -173,22 +116,6 @@ Route::middleware('auth:api')->group(function () {
 
 ### 6. **Tesztek Frissítése**
 
-**Előtte (Sanctum):**
-```php
-use Laravel\Sanctum\Sanctum;
-
-public function test_me_endpoint_returns_user_data()
-{
-    $user = User::factory()->create(['role' => 'student']);
-    
-    Sanctum::actingAs($user);
-
-    $response = $this->getJson('/api/users/me');
-    $response->assertStatus(200);
-}
-```
-
-**Utána (JWT):**
 ```php
 use Tymon\JWTAuth\Facades\JWTAuth;
 
