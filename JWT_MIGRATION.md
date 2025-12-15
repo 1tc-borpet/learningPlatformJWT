@@ -179,10 +179,3 @@ JWT_REFRESH_TTL=20160  # Refresh token élettartam percben (default: 2 hét)
 - Minden védett endpoint `Authorization: Bearer <token>` headert vár
 
 ---
-
-
-**Következő lépések:**
-1. Importáld a `Learning_Platform_JWT.postman_collection.json` fájlt
-2. Állítsd be a `base_url` változót (`http://localhost` vagy a szerver címed)
-3. Futtasd a `Register` → `Login` → bármely védett endpoint tesztet
-4. Élvezd a gyors JWT alapú autentikációt! 
