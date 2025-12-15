@@ -60,7 +60,6 @@ php artisan jwt:secret
 ##  Használat
 
 ### Postman Collection
-Importáld a **`Learning_Platform_JWT.postman_collection.json`** fájlt Postmanbe.
 
 **Fontos lépések:**
 1. **Register** - Új felhasználó létrehozása
